@@ -1,0 +1,68 @@
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('Nayeem.csv')
+
+df.head()
+
+df.shape
+
+plt.scatter(df.Height,df.Weight)
+plt.xlabel('Height')
+plt.ylabel('Weight')
+plt.title('Height-Weight Data')
+plt.savefig('img1.png')
+
+df.Height.mean()
+
+df.Weight.mean()
+
+x=df[['Height']]
+
+y=df[['Weight']]
+
+x.head()
+
+y.head()
+
+from sklearn.linear_model import LinearRegression
+
+reg=LinearRegression()
+
+reg.fit(x,y)
+
+reg.coef_
+
+reg.intercept_
+
+import warnings as wr
+wr.filterwarnings('ignore')
+reg.predict([[4000]])
+
+result=((reg.coef_)*5000+reg.intercept_)
+
+reg.predict(x)
+
+df['predicted']=reg.predict(x)
+
+df.head(3500)
+
+reg.predict([[4000]])
+
+plt.plot(df.Height,reg.predict(x))
+plt.plot(df.Height,reg.predict(df[['Height']]))
+plt.scatter(df.Height,df.Weight,color='green')
+plt.xlabel('Height')
+plt.ylabel('Weight')
+
+reg.score(x,y)
+
+from sklearn.metrics import mean_squared_error
+
+mean_squared_error(df[['Height']], reg.predict(df[['Height']]))
+
+mean_squared_error(x,df.predicted)
+
+Completed
+
